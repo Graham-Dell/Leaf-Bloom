@@ -1,32 +1,72 @@
 # Leaf & Bloom
 
-PHP/MySQL tea shop website for Web Development 1.
+Leaf & Bloom is a PHP/MySQL tea shop website created for Web Development 1.
 
 ## Features
-- Database-driven tea menu and inventory
-- User registration/login with hashed passwords
-- Session-based cart and checkout
-- Stock validation and transactional order placement
+
+- Database-driven tea products and inventory
+- 9 tea products across 3 categories
+- User registration and login
+- Secure password hashing
+- Session-based shopping cart
+- Checkout and order placement
+- Automatic inventory deduction after orders
 - User order history
-- Contact form stored in MySQL
+- Contact form with database storage
+- Newsletter subscription
 - Admin authentication
 - Product CRUD
 - Inventory management
 - Order status management
-- User and message management
+- User management
+- Contact message management
+- Newsletter subscriber management
 - PDO prepared statements
-- Responsive navigation/UI
+- Transaction-based order processing
+- Responsive website navigation and UI
+
+## Tea Categories
+
+### Green & White
+- Jade Mist Gyokuro
+- Silver Needle White
+- Dragon Well Longjing
+
+### Black & Oolong
+- Golden Darjeeling First Flush
+- Lapsang Souchong Smoked
+- Tie Guan Yin Oolong
+
+### Botanical Blends
+- Rose & Chamomile Bloom
+- Hibiscus Elderflower
+- Spiced Rooibos Twilight
 
 ## Local Setup
-1. Install XAMPP (Apache + MySQL + PHP).
-2. Copy `leafandbloom` into `C:\xampp\htdocs\`.
-3. Create a database named `leafandbloom`.
-4. Import the final phpMyAdmin SQL export.
-5. Check `includes/db.php` for local credentials.
-6. Visit `http://localhost/leafandbloom/`.
+
+1. Install XAMPP with Apache, MySQL, and PHP.
+2. Copy the `leafandbloom` folder into `C:\xampp\htdocs\`.
+3. Start Apache and MySQL from the XAMPP Control Panel.
+4. Open phpMyAdmin.
+5. Create a database named `leafandbloom`.
+6. Import `database/leafandbloom.sql`.
+7. Check `includes/db.php` for the local database credentials if necessary.
+8. Visit:
+
+   `http://localhost/leafandbloom/`
 
 ## Admin
-Visit `http://localhost/leafandbloom/admin/login.php` and use the admin account stored in the database.
 
-## Submission
-Include a final phpMyAdmin SQL export of the `leafandbloom` database. Remove unnecessary test/personal records before submitting.
+Admin login:
+
+`http://localhost/leafandbloom/admin/login.php`
+
+Use the administrator account stored in the database.
+
+## Database
+
+A final SQL export is included in:
+
+`database/leafandbloom.sql`
+
+The database contains the tables required for products, inventory, users, orders, order items, contact messages, and newsletter subscribers.
