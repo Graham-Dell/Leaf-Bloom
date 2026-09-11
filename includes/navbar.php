@@ -1,10 +1,15 @@
+<?php
+$isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
+$basePath = $isAdminPage ? '../' : '';
+?>
+
 <header class="site-header">
 
     <nav class="navbar">
 
         <!-- ==================== LOGO ==================== -->
 
-        <a href="index.php" class="brand">
+        <a href="<?= $basePath ?>index.php" class="brand">
             Leaf &amp; Bloom
         </a>
 
@@ -32,27 +37,36 @@
 
             <div class="nav-links">
 
-                <!-- 📍 NAVBAR LINKS ONLY -->
+    <a href="<?= $basePath ?>menu.php">
+        Menu
+    </a>
 
-                <a href="menu.php">Menu</a>
+    <a href="<?= $basePath ?>index.php#philosophy">
+        About
+    </a>
 
-               <a href="#philosophy">About</a>
+    <a href="<?= $basePath ?>inventory.php">
+        Inventory
+    </a>
 
-                <a href="inventory.php">Inventory</a>
+    <a href="<?= $basePath ?>contact.php">
+        Contact
+    </a>
 
-                <a href="contact.php">Contact</a>
+    <a href="<?= $basePath ?>account.php">
+        Account
+    </a>
 
-                <a href="account.php">Account</a>
+    <a href="<?= $basePath ?>cart.php">
+        Cart
+    </a>
 
-            </div>
+</div>
 
-
-            <!-- Shop Now = scrolls to Leaves worth savouring -->
-
-            <a href="#teas" class="shop-button">
-                Shop Now
-            </a>
-
+<a href="<?= $basePath ?>index.php#teas"
+   class="shop-button">
+    Shop Now
+</a>
         </div>
 
     </nav>

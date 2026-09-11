@@ -1,20 +1,16 @@
+/* Mobile navigation */
+
 const navToggle = document.getElementById("navToggle");
 const mainNav = document.getElementById("mainNav");
 
-navToggle.addEventListener("click", () => {
+if (navToggle && mainNav) {
+    navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("open");
 
-    const isOpen = mainNav.classList.toggle("open");
-
-    navToggle.setAttribute(
-        "aria-expanded",
-        isOpen
-    );
-
-    navToggle.setAttribute(
-        "aria-label",
-        isOpen
-            ? "Close navigation"
-            : "Open navigation"
-    );
-
-});
+        navToggle.setAttribute("aria-expanded", isOpen);
+        navToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation" : "Open navigation"
+        );
+    });
+}

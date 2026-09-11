@@ -1,0 +1,11 @@
+# Local development / OS files
+*.log
+*.tmp
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Add the final database export intentionally for submission.

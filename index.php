@@ -1,5 +1,22 @@
 <?php
-// Leaf & Bloom
+
+session_start();
+
+require_once 'includes/db.php';
+
+$stmt = $pdo->query("
+    SELECT
+        product_id,
+        name,
+        tea_type,
+        price,
+        description,
+        image
+    FROM products
+    ORDER BY product_id
+");
+
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -126,148 +143,86 @@
     <div class="tea-grid">
 
 
-        <!-- ==================== TEA CARD 1 ==================== -->
+        <?php foreach ($products as $product): ?>
 
-        <article class="tea-card">
+    <article class="tea-card">
 
-            <div class="tea-image">
-    <img
-        src="assets/images/jade-mist-gyokuro.jpg"
-        alt="Jade Mist Gyokuro">
-</div>
+    <div class="tea-image">
+        <img
+            src="assets/images/<?= htmlspecialchars($product['image']) ?>"
+            alt="<?= htmlspecialchars($product['name']) ?>"
+        >
+    </div>
 
-            <div class="tea-info">
 
-                <div>
-                    <p class="tea-type">
-                        GREEN TEA
-                    </p>
+    <div class="tea-info">
 
-                    <h3>
-    Jade Mist Gyokuro
-</h3>
-                </div>
+        <div>
 
-                <span class="tea-price">
-                    ₱280
-                </span>
-
-            </div>
-
-            <p class="tea-description">
-                Soft floral notes with a clean,
-                refreshing finish.
+            <p class="tea-type">
+                <?= htmlspecialchars($product['tea_type']) ?>
             </p>
 
-        </article>
+            <h3>
+                <?= htmlspecialchars($product['name']) ?>
+            </h3>
+
+        </div>
+
+        <span class="tea-price">
+            ₱<?= number_format($product['price'], 2) ?>
+        </span>
+
+    </div>
 
 
-        <!-- ==================== TEA CARD 2 ==================== -->
-
-        <article class="tea-card">
-
-            <div class="tea-image">
-    <img
-        src="assets/images/golden-darjeeling-first-flush.webp"
-        alt="Golden Darjeeling First Flush">
-</div>
-
-            <div class="tea-info">
-
-                <div>
-                    <p class="tea-type">
-                        BLACK TEA
-                    </p>
-
-                    <h3>
-    Golden Darjeeling First Flush
-</h3>
-                </div>
-
-                <span class="tea-price">
-                    ₱320
-                </span>
-
-            </div>
-
-            <p class="tea-description">
-                A classic black tea brightened
-                with fragrant bergamot.
-            </p>
-
-        </article>
+    <p class="tea-description">
+        <?= htmlspecialchars($product['description']) ?>
+    </p>
 
 
-        <!-- ==================== TEA CARD 3 ==================== -->
+    <!-- ================================
+         ADD TO CART
+         ================================ -->
 
-        <article class="tea-card">
+    <form
+    method="POST"
+    action="cart.php"
+    class="tea-add-cart-form"
+>
 
-            <div class="tea-image">
-    <img
-        src="assets/images/silver-needle-white.avif"
-        alt="Silver Needle White Tea">
-</div>
-
-            <div class="tea-info">
-
-                <div>
-                    <p class="tea-type">
-                        GREEN TEA
-                    </p>
-
-                    <h3>
-    Silver Needle White
-</h3>
-                </div>
-
-                <span class="tea-price">
-                    ₱450
-                </span>
-
-            </div>
-
-            <p class="tea-description">
-                Deep umami character with a
-                smooth, lingering sweetness.
-            </p>
-
-        </article>
+            <input type="hidden" name="return_to" value="index.php">
 
 
-        <!-- ==================== TEA CARD 4 ==================== -->
+        <input
+            type="hidden"
+            name="product_id"
+            value="<?= (int) $product['product_id'] ?>"
+        >
 
-        <article class="tea-card">
+        <input
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+            max="99"
+            aria-label="Quantity"
+        >
 
-            <div class="tea-image">
-    <img
-        src="assets/images/rose-chamomile-bloom.jpeg"
-        alt="Rose & Chamomile Bloom">
-</div>
+        <button
+            type="submit"
+            name="add_to_cart"
+            class="primary-button"
+        >
+            Add to Cart →
+        </button>
 
-            <div class="tea-info">
 
-                <div>
-                    <p class="tea-type">
-                        BOTANICAL BLEND
-                    </p>
+    </form>
 
-                    <h3>
-    Rose &amp; Chamomile Bloom
-</h3>
-                </div>
+</article>
 
-                <span class="tea-price">
-                    ₱250
-                </span>
-
-            </div>
-
-            <p class="tea-description">
-                Naturally soothing with gentle
-                honey-like floral notes.
-            </p>
-
-        </article>
+<?php endforeach; ?>
 
 
     </div>
@@ -561,7 +516,7 @@
     <!-- ==================== NEWSLETTER ==================== -->
 <!-- 📍 NEWSLETTER START -->
 
-<section class="newsletter-section">
+<section id="newsletter" class="newsletter-section">
 
     <div class="newsletter-content">
 
@@ -580,7 +535,7 @@
             from the gardens we source from.
         </p>
 
-        <form class="newsletter-form" action="#" method="post">
+        <form class="newsletter-form" action="subscribe.php" method="post">
 
             <input
                 type="email"
@@ -599,6 +554,27 @@
         <p class="newsletter-note">
             No clutter. Just good tea.
         </p>
+
+        <?php if (isset($_SESSION['newsletter_success'])): ?>
+
+    <p class="newsletter-message success">
+        <?= htmlspecialchars($_SESSION['newsletter_success']) ?>
+    </p>
+
+    <?php unset($_SESSION['newsletter_success']); ?>
+
+<?php endif; ?>
+
+
+<?php if (isset($_SESSION['newsletter_error'])): ?>
+
+    <p class="newsletter-message error">
+        <?= htmlspecialchars($_SESSION['newsletter_error']) ?>
+    </p>
+
+    <?php unset($_SESSION['newsletter_error']); ?>
+
+<?php endif; ?>
 
     </div>
 
