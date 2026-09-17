@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2026 at 09:23 AM
+-- Generation Time: Sep 17, 2026 at 12:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,7 +106,7 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`inventory_id`, `product_id`, `quantity`, `updated_at`) VALUES
-(1, 1, 20, '2026-09-11 07:18:11'),
+(1, 1, 20, '2026-09-16 22:48:43'),
 (2, 2, 20, '2026-09-11 07:18:11'),
 (3, 3, 20, '2026-09-11 07:18:11'),
 (4, 4, 20, '2026-09-11 07:18:11'),
@@ -146,9 +146,17 @@ CREATE TABLE `orders` (
   `order_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `payment_method` varchar(50) NOT NULL DEFAULT 'Cash on Delivery',
   `status` varchar(50) NOT NULL DEFAULT 'Pending',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `total_amount`, `payment_method`, `status`, `created_at`) VALUES
+(6, 2, 280.00, 'Cash on Delivery', 'Pending', '2026-09-15 02:16:54');
 
 -- --------------------------------------------------------
 
@@ -163,6 +171,13 @@ CREATE TABLE `order_items` (
   `quantity` int(10) UNSIGNED NOT NULL,
   `price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(7, 6, 1, 1, 280.00);
 
 -- --------------------------------------------------------
 
@@ -215,7 +230,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `name`, `email`, `password`, `created_at`) VALUES
 (1, 'Graham Test', 'test@leafandbloom.com', '$2y$10$AJIZoAGpimghj23AZck0j.ZvYwbSZWDE5VJtYio4PWxzZtpUMO.ii', '2026-09-10 22:53:56'),
-(2, 'John Silver', 'silverjohn@gmail.com', '$2y$10$nBWn8OPQMPiEILxzrX8wwuAwy6Rnq2Hg30K3VsGK6GSVuMDvK4BrG', '2026-09-11 00:02:46');
+(2, 'John Silver', 'silverjohn@gmail.com', '$2y$10$nBWn8OPQMPiEILxzrX8wwuAwy6Rnq2Hg30K3VsGK6GSVuMDvK4BrG', '2026-09-11 00:02:46'),
+(3, 'jepuy 1', 'admin@leafandbloom.com', '$2y$10$fcUGvt4u2xJjTx9NNaxiF.xBCKkCLUD5.5kKjWN68vY.GQkYsNsaS', '2026-09-15 02:00:06'),
+(4, 'Jane Doe', 'janedoe@gmail.com', '$2y$10$27eF3Yupqeia02baC4eRAuCm7/6lYe8FrGRIjeKFf6WNnGnPcO3AG', '2026-09-16 22:32:15');
 
 --
 -- Indexes for dumped tables
@@ -321,13 +338,13 @@ ALTER TABLE `newsletter_subscribers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `order_item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_item_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -339,7 +356,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

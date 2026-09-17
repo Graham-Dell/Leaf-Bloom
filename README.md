@@ -10,6 +10,8 @@ Leaf & Bloom is a PHP/MySQL tea shop website created for Web Development 1.
 - Secure password hashing
 - Session-based shopping cart
 - Checkout and order placement
+- Payment method selection
+- Order confirmation and printable receipt
 - Automatic inventory deduction after orders
 - User order history
 - Contact form with database storage
@@ -20,7 +22,6 @@ Leaf & Bloom is a PHP/MySQL tea shop website created for Web Development 1.
 - Order status management
 - User management
 - Contact message management
-- Newsletter subscriber management
 - PDO prepared statements
 - Transaction-based order processing
 - Responsive website navigation and UI
@@ -69,4 +70,34 @@ A final SQL export is included in:
 
 `database/leafandbloom.sql`
 
-The database contains the tables required for products, inventory, users, orders, order items, contact messages, and newsletter subscribers.
+The database contains tables for:
+
+- Categories
+- Products
+- Inventory
+- Users
+- Orders
+- Order Items
+- Contact Messages
+- Newsletter Subscribers
+
+## Order Flow
+
+The customer order process is:
+
+1. Browse products
+2. Add products to the cart
+3. Review the cart
+4. Proceed to checkout
+5. Select a payment method
+6. Place the order
+7. Receive an order confirmation
+8. View or print the receipt
+
+Available payment methods:
+
+- Cash on Delivery
+- GCash
+- Bank Transfer
+
+Payment processing is simulated for demonstration purposes. The system records the selected payment method with the order but does not process real financial transactions.

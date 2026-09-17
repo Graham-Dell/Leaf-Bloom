@@ -255,6 +255,17 @@ foreach ($products as $product) {
             <form method="POST"
                   action="place_order.php">
 
+                  <div class="form-group">
+    <label for="payment_method">Payment Method</label>
+
+    <select name="payment_method" id="payment_method" required>
+        <option value="">Select a payment method</option>
+        <option value="Cash on Delivery">Cash on Delivery</option>
+        <option value="GCash">GCash</option>
+        <option value="Bank Transfer">Bank Transfer</option>
+    </select>
+</div>
+
                 <button
                     type="submit"
                     class="primary-button">

@@ -40,6 +40,7 @@ $stmt = $pdo->prepare("
         orders.order_id,
         orders.total_amount,
         orders.status,
+        orders.payment_method,
         orders.created_at
     FROM orders
     WHERE orders.order_id = ?
@@ -51,8 +52,7 @@ $stmt->execute([
     $_SESSION['user_id']
 ]);
 
-$order =
-    $stmt->fetch(PDO::FETCH_ASSOC);
+$order = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 if (!$order) {
@@ -88,7 +88,7 @@ if (!$order) {
 
 <section class="order-success-section">
 
-    <div class="order-success-card">
+    <div class="order-success-card receipt">
 
         <p class="section-label">
             ORDER CONFIRMED
@@ -134,7 +134,18 @@ if (!$order) {
                 </strong>
 
             </div>
+            
+<div>
 
+    <span>
+        PAYMENT METHOD
+    </span>
+
+    <strong>
+        <?= htmlspecialchars($order['payment_method']) ?>
+    </strong>
+
+</div>
 
             <div>
 
@@ -153,6 +164,9 @@ if (!$order) {
 
         </div>
 
+        <button type="button" onclick="window.print()" class="print-receipt">
+    Print Receipt
+</button>
 
         <div class="order-success-buttons">
 

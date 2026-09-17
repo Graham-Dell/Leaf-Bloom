@@ -24,6 +24,7 @@ if (empty($_SESSION['cart'])) {
     exit;
 }
 
+$paymentMethod = $_POST['payment_method'] ?? 'Cash on Delivery';
 
 try {
 
@@ -123,15 +124,15 @@ try {
        CREATE ORDER
        ================================ */
 
-    $stmt = $pdo->prepare("
-        INSERT INTO orders
-        (user_id, total_amount, status)
-        VALUES (?, ?, 'Pending')
-    ");
+   $stmt = $pdo->prepare("
+    INSERT INTO orders (user_id, total_amount, payment_method)
+    VALUES (?, ?, ?)
+");
 
     $stmt->execute([
         $_SESSION['user_id'],
-        $total
+        $total,
+        $paymentMethod
     ]);
 
 

@@ -4787,3 +4787,58 @@ body {
     color: #9b3d3d;
 }
 
+.print-receipt {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        color: black !important;
+    }
+
+    /* Hide website navigation and controls */
+    .site-header,
+    .site-footer,
+    header,
+    footer,
+    nav,
+    .print-receipt,
+    .order-success-buttons,
+    button,
+    a {
+        display: none !important;
+    }
+
+    /* Receipt */
+    .order-success-section {
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: auto !important;
+    }
+
+    .order-success-card.receipt {
+        width: 100% !important;
+        max-width: 700px !important;
+        margin: 0 auto !important;
+        padding: 30px !important;
+        border: 1px solid #ccc !important;
+        box-sizing: border-box;
+        box-shadow: none !important;
+    }
+
+    .order-success-details {
+        page-break-inside: avoid;
+    }
+}
